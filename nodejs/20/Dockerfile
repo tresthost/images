@@ -27,13 +27,11 @@ LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 LABEL       org.opencontainers.image.source="https://github.com/tresthost/images"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
-    && adduser -D -h /home/container container \
-    && curl -o- -L https://yarnpkg.com/install.sh | sh
+RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
+                && npm install -g yarn
+				&& npm install -g pnpm
+				&& adduser -D -h /home/container container
 
-USER container
-ENV USER=container HOME=/home/container
-WORKDIR /home/container
-
-# The following line will add Yarn's binary path to the user's shell profile
-ENV PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+USER        container
+ENV         USER=container HOME=/home/container
+WORKDIR     /home/container
