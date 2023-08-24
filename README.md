@@ -14,6 +14,6 @@
 > [![build oses](https://github.com/tresthost/images/actions/workflows/python.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/python.yml)
 
 
-----
+---
 
-<h1 style="text-align: center; font-size: 15px; margin-top: 80px;">(originally forked from <a href="https://github.com/pterodactyl/yolks">pterodactyl/yolks</a>)</h1></h1>
+<p align="center">(originally forked from <a href="https://github.com/pterodactyl/yolks">pterodactyl/yolks</a>)</p>
