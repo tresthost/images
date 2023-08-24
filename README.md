@@ -16,6 +16,4 @@
 
 ----
 
-## We are always open for contributions and support by our users ❤️
-
-### <h1 style="text-align: center;">(originally forked from <a href="https://github.com/pterodactyl/yolks">pterodactyl/yolks</a>)</h1>
+<h1 style="text-align: center; font-size: 15px; margin-top: 80px;">(originally forked from <a href="https://github.com/pterodactyl/yolks">pterodactyl/yolks</a>)</h1></h1>
