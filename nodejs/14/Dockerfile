@@ -34,9 +34,12 @@ USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
-# Install npm, yarn, and pnpm
-RUN         curl -o- -L https://yarnpkg.com/install.sh | sh && \
-            npm install -g pnpm
+# Install yarn
+RUN         apk add --update --no-cache yarn
+
+# Install npm and pnpm
+RUN         apk add --update --no-cache nodejs npm \
+                && npm install -g pnpm
 
 COPY        ./../entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/ash", "/entrypoint.sh" ]
