@@ -19,14 +19,5 @@ ENV         DEBIAN_FRONTEND noninteractive
 
 WORKDIR     /home/container
 
-# Install the latest version of npm
-RUN         npm install -g npm@latest
-
-# Install the latest version of yarn
-RUN         npm install -g yarn@latest
-
-# Install the latest version of pnpm
-RUN         npm install -g pnpm@latest
-
 COPY        ./entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
