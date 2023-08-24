@@ -19,17 +19,14 @@ ENV         DEBIAN_FRONTEND noninteractive
 
 WORKDIR     /home/container
 
-# Install pnpm
-RUN         curl -fsSL https://get.pnpm.io/install.sh | sh
-
-# Install yarn
-RUN         curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor -o /usr/share/keyrings/nodesource-archive-keyring.gpg
-RUN         echo "deb [signed-by=/usr/share/keyrings/nodesource-archive-keyring.gpg] https://deb.nodesource.com/node_19.x buster main" > /etc/apt/sources.list.d/nodesource.list
-RUN         apt-get update && apt-get install -y nodejs
-RUN         npm install -g yarn
-
 # Install the latest version of npm
 RUN         npm install -g npm@latest
+
+# Install the latest version of yarn
+RUN         npm install -g yarn@latest
+
+# Install the latest version of pnpm
+RUN         npm install -g pnpm@latest
 
 COPY        ./entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
