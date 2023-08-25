@@ -12,8 +12,11 @@ RUN         apt update && apt upgrade -y \
 				&& update-locale lang=en_US.UTF-8 \
 				&& dpkg-reconfigure --frontend noninteractive locales \
 				&& useradd -m -d /home/container -s /bin/bash container \
-				&& curl -L https://unpkg.com/@pnpm/self-installer | node \
-    			&& curl -o- -L https://yarnpkg.com/install.sh | sh \
+				&& curl -fsSL https://deb.nodesource.com/setup_current.x | bash - \
+				&& apt-get install -y nodejs \
+				&& npm install -g npm@latest \
+				&& npm install -g pnpm@latest \
+				&& npm install -g yarn@latest \
 				&& rm -rf /var/cache/apk/*
 
 USER        container
