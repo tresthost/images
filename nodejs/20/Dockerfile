@@ -28,9 +28,9 @@ LABEL       org.opencontainers.image.source="https://github.com/tresthost/images
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
-                && npm install -g yarn
-				&& npm install -g pnpm
 				&& adduser -D -h /home/container container
+	            && npm install -g yarn
+				&& npm install -g pnpm
 
 USER        container
 ENV         USER=container HOME=/home/container
