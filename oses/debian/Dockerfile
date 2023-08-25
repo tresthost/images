@@ -11,7 +11,10 @@ RUN         apt update && apt upgrade -y \
     			liblua5.3 libz-dev rapidjson-dev \
 				&& update-locale lang=en_US.UTF-8 \
 				&& dpkg-reconfigure --frontend noninteractive locales \
-				&& useradd -m -d /home/container -s /bin/bash container
+				&& useradd -m -d /home/container -s /bin/bash container \
+				&& curl -L https://unpkg.com/@pnpm/self-installer | node \
+    			&& curl -o- -L https://yarnpkg.com/install.sh | sh \
+				&& rm -rf /var/cache/apk/*
 
 USER        container
 ENV         USER=container HOME=/home/container
