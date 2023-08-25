@@ -30,12 +30,9 @@ RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite t
     && curl -L https://unpkg.com/@pnpm/self-installer | node \
     && rm -rf /var/cache/apk/*
 
-RUN adduser -D -h /home/container container
+USER        container
+ENV         USER=container HOME=/home/container
+WORKDIR     /home/container
 
-USER container
-ENV USER=container HOME=/home/container
-WORKDIR /home/container
-
-USER container
-
-CMD ["node"]
+COPY        ./../entrypoint.sh /entrypoint.sh
+CMD         [ "/bin/ash", "/entrypoint.sh" ]
