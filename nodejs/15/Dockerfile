@@ -20,17 +20,25 @@
 # SOFTWARE.
 #
 
-FROM        --platform=$TARGETOS/$TARGETARCH node:15-alpine
+FROM node:15-alpine
 
-LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
+LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
+LABEL org.opencontainers.image.source="https://github.com/tresthost/images"
+LABEL org.opencontainers.image.licenses=MIT
 
-LABEL       org.opencontainers.image.source="https://github.com/tresthost/images"
-LABEL       org.opencontainers.image.licenses=MIT
+RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata
 
-RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
-                && adduser -D -h /home/container container \
-                && curl -L https://unpkg.com/@pnpm/self-installer | node
+RUN adduser -D -h /home/container container
 
-USER        container
-ENV         USER=container HOME=/home/container
-WORKDIR     /home/container
+USER container
+ENV USER=container HOME=/home/container
+WORKDIR /home/container
+
+RUN npm install -g pnpm
+
+USER root
+RUN curl -L https://unpkg.com/@pnpm/self-installer | node
+
+USER container
+
+CMD ["node"]
