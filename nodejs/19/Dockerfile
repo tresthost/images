@@ -28,6 +28,7 @@ LABEL org.opencontainers.image.licenses=MIT
 
 RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
     && curl -L https://unpkg.com/@pnpm/self-installer | node \
+    && curl -o- -L https://yarnpkg.com/install.sh | sh \
     && rm -rf /var/cache/apk/*
 
 USER        container
