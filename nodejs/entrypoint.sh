@@ -42,8 +42,16 @@ node -v
 # replacing the values.
 PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 
-# Display the command we're running in the output, and then execute it with the env
-# from the container itself.
+# Create a temporary script file
+TMP_SCRIPT=$(mktemp)
+echo "#!/bin/ash" > "$TMP_SCRIPT"
+echo "$PARSED" >> "$TMP_SCRIPT"
+chmod +x "$TMP_SCRIPT"
+
+# Display the command we're running in the output, and then execute the temporary script
 printf "\033[1m\033[33mcontainer@tresthost~ \033[0m%s\n" "$PARSED"
-# shellcheck disable=SC2086
-exec env ${PARSED}
+# Execute the temporary script
+exec env "$TMP_SCRIPT"
+
+# Clean up the temporary script
+rm -f "$TMP_SCRIPT"
