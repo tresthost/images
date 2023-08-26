@@ -16,6 +16,18 @@
 | `tresthost/nodejs` | [![build nodejs](https://github.com/tresthost/images/actions/workflows/nodejs.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/nodejs.yml) | NodeJS versions from `12` to `20`.                     |
 | `tresthost/python` | [![build python](https://github.com/tresthost/images/actions/workflows/python.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/python.yml) | Python versions from `3.7` to `3.11`.                  |
 
+## 📝 Entrypoint Scripts
+
+| Script                                 | Description                       |
+| -------------------------------------- | --------------------------------- |
+| `/packages/commands/server/startup.sh` | NodeJS Images installation script |
+| `/oses/debian/entrypoint.sh`           | Debian Images entrypoint script   |
+| `/oses/ubuntu/entrypoint.sh`           | Ubuntu Images entrypoint script   |
+| `/nodejs/entrypoint.sh`                | NodeJS Images entrypoint script   |
+| `/go/entrypoint.sh`                    | Go Images entrypoint script       |
+| `/java/entrypoint.sh`                  | Java Images entrypoint script     |
+| `/python/entrypoint.sh`                | Python Images entrypoint script   |
+
 ---
 
 <p align="center">(originally forked from <a href="https://github.com/pterodactyl/yolks">pterodactyl/yolks</a>)</p>
