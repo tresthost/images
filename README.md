@@ -18,15 +18,14 @@
 
 ## 📝 Entrypoint Scripts
 
-| Script                                 | Description                       |
-| -------------------------------------- | --------------------------------- |
-| `/packages/commands/server/startup.sh` | NodeJS Images installation script |
-| `/oses/debian/entrypoint.sh`           | Debian Images entrypoint script   |
-| `/oses/ubuntu/entrypoint.sh`           | Ubuntu Images entrypoint script   |
-| `/nodejs/entrypoint.sh`                | NodeJS Images entrypoint script   |
-| `/go/entrypoint.sh`                    | Go Images entrypoint script       |
-| `/java/entrypoint.sh`                  | Java Images entrypoint script     |
-| `/python/entrypoint.sh`                | Python Images entrypoint script   |
+| Script                       | Description                     |
+| ---------------------------- | ------------------------------- |
+| `/oses/debian/entrypoint.sh` | Debian Images entrypoint script |
+| `/oses/ubuntu/entrypoint.sh` | Ubuntu Images entrypoint script |
+| `/nodejs/entrypoint.sh`      | NodeJS Images entrypoint script |
+| `/go/entrypoint.sh`          | Go Images entrypoint script     |
+| `/java/entrypoint.sh`        | Java Images entrypoint script   |
+| `/python/entrypoint.sh`      | Python Images entrypoint script |
 
 ---
 

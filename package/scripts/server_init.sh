@@ -2,6 +2,7 @@
 # NodeJS App Installation Script
 #
 # Server Files: /mnt/server
+
 apt update
 apt install -y git curl jq file unzip make gcc g++ python python-dev libtool
 
