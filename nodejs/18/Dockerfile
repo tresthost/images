@@ -27,6 +27,7 @@ LABEL org.opencontainers.image.source="https://github.com/tresthost/images"
 LABEL org.opencontainers.image.licenses=MIT
 
 RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
+    && apk add --no-cache --virtual .build-deps build-base gcc g++ make python3 \
     && curl -L https://unpkg.com/@pnpm/self-installer | node \
     && curl -o- -L https://yarnpkg.com/install.sh | sh \
     && rm -rf /var/cache/apk/*
