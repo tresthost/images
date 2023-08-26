@@ -11,13 +11,7 @@ RUN         apt update && apt upgrade -y \
     			liblua5.3 libz-dev rapidjson-dev \
 				&& update-locale lang=en_US.UTF-8 \
 				&& dpkg-reconfigure --frontend noninteractive locales \
-				&& useradd -m -d /home/container -s /bin/bash container \
-				&& curl -fsSL https://deb.nodesource.com/setup_current.x | bash - \
-				&& apt-get install -y nodejs \
-				&& npm install -g npm@latest \
-				&& npm install -g pnpm@latest \
-				&& npm install -g yarn@latest \
-				&& rm -rf /var/cache/apk/*
+				&& useradd -m -d /home/container -s /bin/bash container
 
 USER        container
 ENV         USER=container HOME=/home/container
