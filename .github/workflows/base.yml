@@ -1,4 +1,5 @@
-name: build oses
+name: Build oses
+
 on:
   workflow_dispatch:
   schedule:

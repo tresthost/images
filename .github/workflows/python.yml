@@ -1,4 +1,4 @@
-name: build python
+name: Build Python Images
 on:
   workflow_dispatch:
   schedule:
@@ -19,8 +19,8 @@ jobs:
           - 3.7
           - 3.8
           - 3.9
-          - '3.10'
-          - '3.11'
+          - "3.10"
+          - "3.11"
     steps:
       - uses: actions/checkout@v3
       # Setup QEMU for ARM64 Build
