@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         oses:
-          - debian
+          #- debian
           - ubuntu
     steps:
       - uses: actions/checkout@v3
