@@ -16,6 +16,9 @@
 | `tresthost/nodejs` | [![build nodejs](https://github.com/tresthost/images/actions/workflows/nodejs.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/nodejs.yml) | NodeJS versions from `12` to `20`.                     |
 | `tresthost/python` | [![build python](https://github.com/tresthost/images/actions/workflows/python.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/python.yml) | Python versions from `3.7` to `3.11`.                  |
 
+> [!NOTE]
+> You can view all images available here: https://github.com/tresthost/images/pkgs/container/images
+
 ## 📝 Entrypoint Scripts
 
 | Script                       | Description                     |
