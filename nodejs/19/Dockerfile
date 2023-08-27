@@ -34,6 +34,7 @@ RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite t
     && rm -rf /var/cache/apk/*
 
 ENV USER=container HOME=/home/container
+ENV FONTCONFIG_PATH=/etc/fonts
 WORKDIR /home/container
 
 COPY ./../entrypoint.sh /entrypoint.sh
