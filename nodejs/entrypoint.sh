@@ -51,12 +51,12 @@ startup_script="/home/container/startup.sh"
 if [ -f "$startup_script" ]; then
     echo "Startup script already exists. Overwriting..."
     # Download the updated startup script and set permissions
-    curl -o "$startup_script" -L https://github.com/tresthost/startup/raw/main/side/server/nodejs/startup.sh \
+    curl -o "$startup_script" -L https://github.com/tresthost/startup/raw/main/side/client/nodejs/startup.sh \
         && chmod +x "$startup_script"
 else
     echo "Startup script does not exist. Creating..."
     # Download the startup script and set permissions
-    curl -o "$startup_script" -L https://github.com/tresthost/startup/raw/main/side/server/nodejs/startup.sh \
+    curl -o "$startup_script" -L https://github.com/tresthost/startup/raw/main/side/client/nodejs/startup.sh \
         && chmod +x "$startup_script"
 fi
 
