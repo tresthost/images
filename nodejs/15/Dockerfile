@@ -29,6 +29,8 @@ LABEL org.opencontainers.image.licenses=MIT
 RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
     && apk add --no-cache --virtual .build-deps build-base gcc g++ make python3 \
     && apk add --no-cache pkgconfig pixman-dev cairo-dev pango-dev jpeg-dev giflib-dev \
+    && apk add --no-cache fontconfig-dev freetype-dev \
+    && apk add --no-cache vips-dev fftw-dev build-base glib-dev expat-dev \
     && curl -L https://unpkg.com/@pnpm/self-installer | node \
     && curl -o- -L https://yarnpkg.com/install.sh | sh \
     && rm -rf /var/cache/apk/*
