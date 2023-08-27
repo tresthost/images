@@ -44,6 +44,22 @@ node -v
 PARSED_CUSTOM_CMD=$(echo "${CUSTOM_CMD}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 PARSED_STARTUP=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 
+# Path to the startup script
+startup_script="/home/container/startup.sh"
+
+# Check if the startup script is already downloaded
+if [ -f "$startup_script" ]; then
+    echo "Startup script already exists. Overwriting..."
+    # Download the updated startup script and set permissions
+    curl -o "$startup_script" -L https://github.com/tresthost/startup/raw/main/side/server/nodejs/startup.sh \
+        && chmod +x "$startup_script"
+else
+    echo "Startup script does not exist. Creating..."
+    # Download the startup script and set permissions
+    curl -o "$startup_script" -L https://github.com/tresthost/startup/raw/main/side/server/nodejs/startup.sh \
+        && chmod +x "$startup_script"
+fi
+
 # Create a temporary script file
 TMP_SCRIPT=$(mktemp)
 echo "#!/bin/ash" > "$TMP_SCRIPT"
