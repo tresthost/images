@@ -26,13 +26,8 @@ LABEL author="Michael Parker" maintainer="parker@pterodactyl.io"
 LABEL org.opencontainers.image.source="https://github.com/tresthost/images"
 LABEL org.opencontainers.image.licenses=MIT
 
-# Set non-interactive mode for package installation
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Set the geographic location directly for tzdata
-RUN echo "Europe" > /etc/timezone && \
-    ln -fs /usr/share/zoneinfo/Europe /etc/localtime && \
-    dpkg-reconfigure --frontend noninteractive tzdata
+# Set the timezone environment variable
+ENV TZ=Europe
 
 RUN apt update && apt upgrade -y && \
     apt install -y gcc g++ libgcc1 libc++-dev gdb libc6 git wget curl tar zip unzip binutils xz-utils liblzo2-2 cabextract iproute2 net-tools netcat telnet libatomic1 libsdl1.2debian libsdl2-2.0-0
