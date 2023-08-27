@@ -32,12 +32,11 @@ RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite t
     && curl -o- -L https://yarnpkg.com/install.sh | sh \
     && rm -rf /var/cache/apk/*
 
-USER        container
-ENV         USER=container HOME=/home/container
-WORKDIR     /home/container
+ENV USER=container HOME=/home/container
+WORKDIR /home/container
 
 RUN curl -o /home/container/startup_init.sh -L https://github.com/tresthost/startup/raw/main/side/server/nodejs/startup.sh \
     && chmod +x /home/container/startup_init.sh
 
-COPY        ./../entrypoint.sh /entrypoint.sh
-CMD         [ "/bin/ash", "/entrypoint.sh" ]
+COPY ./../entrypoint.sh /entrypoint.sh
+CMD ["/bin/ash", "/entrypoint.sh"]
