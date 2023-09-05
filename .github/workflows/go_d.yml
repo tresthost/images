@@ -1,4 +1,4 @@
-name: Build GO Images - Github
+name: Build GO Images - DockerHub
 
 on:
   workflow_dispatch:
