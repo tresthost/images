@@ -35,6 +35,8 @@ RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite t
     && curl -o- -L https://yarnpkg.com/install.sh | sh \
     && rm -rf /var/cache/apk/*
 
+RUN apk add --no-cache ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family
+
 ENV USER=container HOME=/home/container
 ENV FONTCONFIG_PATH=/etc/fonts
 WORKDIR /home/container
