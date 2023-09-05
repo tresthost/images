@@ -1,4 +1,4 @@
-name: Build Python Images - GitHub
+name: Build Java Images - GitHub
 on:
   workflow_dispatch:
   schedule:

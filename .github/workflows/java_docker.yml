@@ -1,4 +1,4 @@
-name: Build Python Images - DockerHub
+name: Build Java Images - DockerHub
 on:
   workflow_dispatch:
   schedule:
