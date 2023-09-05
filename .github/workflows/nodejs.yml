@@ -7,7 +7,7 @@ on:
     branches:
       - master
     paths:
-      - nodejs/*
+      - genric/nodejs/*
 jobs:
   push:
     name: "images:nodejs_${{ matrix.tag }}"
@@ -38,8 +38,8 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v4
         with:
-          context: ./nodejs
-          file: ./nodejs/${{ matrix.tag }}/Dockerfile
+          context: ./genric/nodejs
+          file: ./genric/nodejs/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |

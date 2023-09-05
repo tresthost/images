@@ -7,7 +7,7 @@ on:
     branches:
       - master
     paths:
-      - java/**
+      - genric/java/**
 jobs:
   push:
     name: "images:java_${{ matrix.tag }}"
@@ -40,8 +40,8 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v4
         with:
-          context: ./java
-          file: ./java/${{ matrix.tag }}/Dockerfile
+          context: ./genric/java
+          file: ./genric/java/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |

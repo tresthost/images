@@ -7,7 +7,7 @@ on:
     branches:
       - master
     paths:
-      - python/**
+      - genric/python/**
 jobs:
   push:
     name: "images:python_${{ matrix.tag }}"
@@ -35,8 +35,8 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v4
         with:
-          context: ./python
-          file: ./python/${{ matrix.tag }}/Dockerfile
+          context: ./genric/python
+          file: ./genric/python/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |
