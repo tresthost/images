@@ -1,5 +1,4 @@
-name: Build GO Images - Github
-
+name: Build NodeJS Images - GitHub
 on:
   workflow_dispatch:
   schedule:
@@ -8,23 +7,23 @@ on:
     branches:
       - master
     paths:
-      - genric/go/**
+      - genric/nodejs/*
 jobs:
   push:
-    name: "images:go_${{ matrix.tag }}"
+    name: "images:nodejs_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         tag:
-          - 1.14
-          - 1.15
-          - 1.16
-          - 1.17
-          - 1.18
-          - 1.19
-          - "1.20"
-          - 1.21
+          - 12
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+          - "20"
     steps:
       - uses: actions/checkout@v3
       # Setup QEMU for ARM64 Build
@@ -39,9 +38,9 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v4
         with:
-          context: ./genric/go
-          file: ./genric/go/${{ matrix.tag }}/Dockerfile
-          platforms: linux/amd64, linux/arm64
+          context: ./genric/nodejs
+          file: ./genric/nodejs/${{ matrix.tag }}/Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/tresthost/images:go_${{ matrix.tag }}
+            ghcr.io/tresthost/images:nodejs_${{ matrix.tag }}
