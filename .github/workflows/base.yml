@@ -9,6 +9,7 @@ on:
       - master
     paths:
       - oses/**
+
 jobs:
   push:
     name: "images:${{ matrix.oses }}"
@@ -38,3 +39,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/tresthost/images:${{ matrix.oses }}
+            tresthost/images:${{ matrix.oses }}

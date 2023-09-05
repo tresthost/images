@@ -45,3 +45,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/tresthost/images:go_${{ matrix.tag }}
+            tresthost/images:go_${{ matrix.tag }}

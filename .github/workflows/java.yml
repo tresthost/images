@@ -46,3 +46,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/tresthost/images:java_${{ matrix.tag }}
+            tresthost/images:java_${{ matrix.tag }}
