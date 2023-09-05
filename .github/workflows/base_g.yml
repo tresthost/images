@@ -39,4 +39,3 @@ jobs:
           push: true
           tags: |
             ghcr.io/tresthost/images:${{ matrix.oses }}
-            tresthost/images:${{ matrix.oses }}
