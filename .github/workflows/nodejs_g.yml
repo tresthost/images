@@ -1,4 +1,4 @@
-name: Build Python Images
+name: Build NodeJS Images - Github
 on:
   workflow_dispatch:
   schedule:
@@ -7,28 +7,26 @@ on:
     branches:
       - master
     paths:
-      - genric/java/**
+      - genric/nodejs/*
 jobs:
   push:
-    name: "images:java_${{ matrix.tag }}"
+    name: "images:nodejs_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         tag:
-          - 8
-          - 8j9
-          - 11
-          - 11j9
+          - 12
+          - 14
+          - 15
           - 16
           - 17
-          - 17j9
           - 18
-          - 18j9
           - 19
-          - 19j9
+          - "20"
     steps:
       - uses: actions/checkout@v3
+      # Setup QEMU for ARM64 Build
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
         with:
@@ -40,10 +38,10 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v4
         with:
-          context: ./genric/java
-          file: ./genric/java/${{ matrix.tag }}/Dockerfile
+          context: ./genric/nodejs
+          file: ./genric/nodejs/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/tresthost/images:java_${{ matrix.tag }}
-            tresthost/images:java_${{ matrix.tag }}
+            ghcr.io/tresthost/images:nodejs_${{ matrix.tag }}
+            tresthost/images:nodejs_${{ matrix.tag }}

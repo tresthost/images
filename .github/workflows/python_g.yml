@@ -1,5 +1,4 @@
-name: Build oses
-
+name: Build Python Images - Github
 on:
   workflow_dispatch:
   schedule:
@@ -8,20 +7,23 @@ on:
     branches:
       - master
     paths:
-      - oses/**
-
+      - genric/python/**
 jobs:
   push:
-    name: "images:${{ matrix.oses }}"
+    name: "images:python_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        oses:
-          #- debian
-          - ubuntu
+        tag:
+          - 3.7
+          - 3.8
+          - 3.9
+          - "3.10"
+          - "3.11"
     steps:
       - uses: actions/checkout@v3
+      # Setup QEMU for ARM64 Build
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
         with:
@@ -33,10 +35,10 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v4
         with:
-          context: ./oses/${{ matrix.oses }}
-          file: ./oses/${{ matrix.oses }}/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          context: ./genric/python
+          file: ./genric/python/${{ matrix.tag }}/Dockerfile
+          platforms: linux/amd64, linux/arm64
           push: true
           tags: |
-            ghcr.io/tresthost/images:${{ matrix.oses }}
-            tresthost/images:${{ matrix.oses }}
+            ghcr.io/tresthost/images:python_${{ matrix.tag }}
+            tresthost/images:python_${{ matrix.tag }}
