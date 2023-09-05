@@ -35,6 +35,10 @@ RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite t
     && curl -o- -L https://yarnpkg.com/install.sh | sh \
     && rm -rf /var/cache/apk/*
 
+RUN mkdir -p /usr/share/fonts \
+    && cd /usr/share/fonts \
+    && curl -L
+
 ENV USER=container HOME=/home/container
 ENV FONTCONFIG_PATH=/etc/fonts
 WORKDIR /home/container
