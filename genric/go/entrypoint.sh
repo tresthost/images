@@ -42,6 +42,22 @@ go version
 # replacing the values.
 PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
 
+# Path to the startup script
+startup_script="/home/container/startup.sh"
+
+# Check if the startup script is already downloaded
+if [ -f "$startup_script" ]; then
+    echo "Startup script already exists. Overwriting..."
+    # Download the updated startup script and set permissions
+    curl -o "$startup_script" -L https://github.com/tresthost/startup/raw/main/side/client/golang/startup.sh \
+        && chmod +x "$startup_script"
+else
+    echo "Startup script does not exist. Creating..."
+    # Download the startup script and set permissions
+    curl -o "$startup_script" -L https://github.com/tresthost/startup/raw/main/side/client/golang/startup.sh \
+        && chmod +x "$startup_script"
+fi
+
 # Display the command we're running in the output, and then execute it with the env
 # from the container itself.
 printf "\033[1m\033[33mcontainer@tresthost~ \033[0m%s\n" "$PARSED"
