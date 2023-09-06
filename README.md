@@ -10,11 +10,11 @@
 
 | Image              | Status                                                                                                                                                          | Description                                            |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| `tresthost/base`   | [![build oses](https://github.com/tresthost/images/actions/workflows/base.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/base.yml)       | Ubuntu and Debian images, with pre-installed packages. |
-| `tresthost/go`     | [![build go](https://github.com/tresthost/images/actions/workflows/go.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/go.yml)             | Go versions from `1.14` to `1.21`.                     |
-| `tresthost/java`   | [![build java](https://github.com/tresthost/images/actions/workflows/java.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/java.yml)       | Java versions from `8` to `19`.                        |
-| `tresthost/nodejs` | [![build nodejs](https://github.com/tresthost/images/actions/workflows/nodejs.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/nodejs.yml) | NodeJS versions from `12` to `20`.                     |
-| `tresthost/python` | [![build python](https://github.com/tresthost/images/actions/workflows/python.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/python.yml) | Python versions from `3.7` to `3.11`.                  |
+| `tresthost/base`   | [![build oses](https://github.com/tresthost/images/actions/workflows/base_github.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/base_github.yml)       | Ubuntu and Debian images, with pre-installed packages. |
+| `tresthost/go`     | [![build go](https://github.com/tresthost/images/actions/workflows/go_github.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/go_github.yml)             | Go versions from `1.14` to `1.21`.                     |
+| `tresthost/java`   | [![build java](https://github.com/tresthost/images/actions/workflows/java_github.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/java_github.yml)       | Java versions from `8` to `19`.                        |
+| `tresthost/nodejs` | [![build nodejs](https://github.com/tresthost/images/actions/workflows/nodejs_github.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/nodejs_github.yml) | NodeJS versions from `12` to `20`.                     |
+| `tresthost/python` | [![build python](https://github.com/tresthost/images/actions/workflows/python_github.yml/badge.svg)](https://github.com/tresthost/images/actions/workflows/python_github.yml) | Python versions from `3.7` to `3.11`.                  |
 
 > [!NOTE]
 > You can view all images available here: https://github.com/tresthost/images/pkgs/container/images
