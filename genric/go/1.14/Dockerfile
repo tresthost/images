@@ -28,7 +28,12 @@ LABEL       org.opencontainers.image.source="https://github.com/tresthost/images
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apk add --update --no-cache ca-certificates tzdata \
-				&& adduser -D -h /home/container container
+				&& update-ca-certificates \
+				&& apk add --no-cache --virtual .build-deps git \
+				&& apk add --no-cache curl \
+				&& adduser -D -h /home/container container \
+				&& mkdir -p /home/container/.cache/go-build \
+				&& chown -R container:container /home/container
 
 USER        container
 ENV         USER=container HOME=/home/container
