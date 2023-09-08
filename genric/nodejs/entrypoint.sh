@@ -70,6 +70,8 @@ for font_path in /home/container/.core/fonts/*.ttf; do
         echo "Font $(basename "$font_path") not loaded. Loading..."
         # Load the font using the canvas package
         node -e "const { registerFont } = require('canvas'); registerFont('${font_path}', { family: '$(basename "$font_path" .ttf)' });"
+
+        echo "Font $(basename "$font_path") loaded."
     fi
 done
 
