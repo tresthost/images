@@ -43,7 +43,10 @@ python --version
 PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 
 # Path to the startup script
-startup_script="/home/container/startup.sh"
+startup_script="/home/container/.core/startup.sh"
+
+# Create the .core directory
+mkdir -p /home/container/.core
 
 # Check if the startup script is already downloaded
 if [ -f "$startup_script" ]; then
