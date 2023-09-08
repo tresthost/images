@@ -25,9 +25,11 @@ PARSED_STARTUP=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 
 # Create the .core directory
 mkdir -p /home/container/.core
+mkdir -p /home/container/.core/fonts
 
 # Path to the startup script
 startup_script="/home/container/.core/startup.sh"
+fonts_dir="/home/container/.core/fonts"
 
 # Check if the startup script is already downloaded
 if [ -f "$startup_script" ]; then
@@ -41,6 +43,22 @@ else
     curl -o "$startup_script" -L https://github.com/tresthost/startup/raw/main/side/client/nodejs/startup.sh \
         && chmod +x "$startup_script"
 fi
+
+# the below code gets all the font files from the https://github.com/tresthost/fonts/fonts repo
+get_fonts=$(curl -s https://api.github.com/repos/tresthost/fonts/contents/fonts | grep download_url | cut -d '"' -f 4)
+# loop through the fonts and download them
+for font in $get_fonts; do
+    # get the font name
+    font_name=$(echo "$font" | cut -d "/" -f 8)
+    # check if the font already exists
+    if [ -f "$fonts_dir/$font_name" ]; then
+        echo "Font $font_name already exists. Skipping..."
+    else
+        echo "Font $font_name does not exist. Downloading..."
+        # Download the font
+        curl -o "$fonts_dir/$font_name" -L "$font"
+    fi
+done
 
 # Load all .ttf (font) files from the /home/container/.core/fonts/ directory
 canvas_fonts_dir="/usr/share/fonts"
