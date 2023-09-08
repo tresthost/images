@@ -23,15 +23,11 @@ node -v
 PARSED_CUSTOM_CMD=$(echo "${CUSTOM_CMD}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 PARSED_STARTUP=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 
-# Create the core directory
-mkdir -p /home/container/core
+# Create the .core directory
+mkdir -p /home/container/.core
 
 # Path to the startup script
-startup_script="/home/container/core/startup.sh"
-fonts_dir="/home/container/core/fonts"
-
-# Create the fonts directory
-mkdir -p "$fonts_dir"
+startup_script="/home/container/.core/startup.sh"
 
 # Check if the startup script is already downloaded
 if [ -f "$startup_script" ]; then
@@ -46,41 +42,18 @@ else
         && chmod +x "$startup_script"
 fi
 
-# the below code gets all the font files from the https://github.com/tresthost/fonts/fonts repo
-get_fonts=$(curl -s https://api.github.com/repos/tresthost/fonts/contents/fonts | grep download_url | cut -d '"' -f 4)
-# loop through the fonts and download them
-for font in $get_fonts; do
-    # get the font name
-    font_name=$(echo "$font" | cut -d "/" -f 8)
-    # check if the font already exists
-    if [ -f "$fonts_dir/$font_name" ]; then
-        echo "Font $font_name already exists. Skipping..."
+# Load all .ttf (font) files from the /home/container/.core/fonts/ directory
+canvas_fonts_dir="/usr/share/fonts"
+
+for font_path in /home/container/.core/fonts/*.ttf; do
+    if [ -f "$canvas_fonts_dir/$(basename "$font_path")" ]; then
+        echo "Font $(basename "$font_path") already loaded. Skipping..."
     else
-        echo "Font $font_name does not exist. Downloading..."
-        # Download the font
-        curl -o "$fonts_dir/$font_name" -L "$font"
+        echo "Font $(basename "$font_path") not loaded. Loading..."
+        # Load the font using the canvas package
+        node -e "const { registerFont } = require('canvas'); registerFont('${font_path}', { family: '$(basename "$font_path" .ttf)' });"
     fi
 done
-
-# Remount /usr/share/fonts as read-write
-mount -o remount,rw /usr/share/fonts
-
-# the below system will load all the fonts in the fonts directory
-for font in "$fonts_dir"/*; do
-    # get the font name
-    font_name=$(echo "$font" | cut -d "/" -f 8)
-    # check if the font is already loaded
-    if [ -f "/usr/share/fonts/$font_name" ]; then
-        echo "Font $font_name already loaded. Skipping..."
-    else
-        echo "Font $font_name not loaded. Loading..."
-        # copy and load the font
-        cp "$font" /usr/share/fonts
-    fi
-done
-
-# Remount /usr/share/fonts as read-only
-mount -o remount,ro /usr/share/fonts
 
 # Create a temporary script file
 TMP_SCRIPT=$(mktemp)
