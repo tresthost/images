@@ -43,10 +43,25 @@ java -version
 PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
 
 # Path to the startup script
-startup_script="/home/container/.core/startup.sh"
+startup_script="/home/container/.tresthost/startup.sh"
+trest_dir="/home/container/.tresthost"
 
-# Create the .core directory
-mkdir -p /home/container/.core
+core_dir="/home/container/.core"
+core_dir1="/home/container/core/"
+
+# Check if the core_dir and core_dir1 exist
+if [ -d "$core_dir" ]; then
+    rm -rf "$core_dir"
+fi
+
+if [ -d "$core_dir1" ]; then
+    rm -rf "$core_dir1"
+fi
+
+# Create the .tresthost directory if it doesnt exist
+if [ ! -d "$trest_dir" ]; then
+    mkdir -p "$trest_dir"
+fi
 
 # Check if the startup script is already downloaded
 if [ -f "$startup_script" ]; then

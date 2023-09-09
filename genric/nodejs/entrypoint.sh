@@ -23,13 +23,31 @@ node -v
 PARSED_CUSTOM_CMD=$(echo "${CUSTOM_CMD}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 PARSED_STARTUP=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 
-# Create the .core directory
-mkdir -p /home/container/.core
-mkdir -p /home/container/.core/fonts
+# Create the .tresthost directory
+mkdir -p /home/container/.tresthost
+mkdir -p /home/container/.tresthost/fonts
 
 # Path to the startup script
-startup_script="/home/container/.core/startup.sh"
-fonts_dir="/home/container/.core/fonts"
+startup_script="/home/container/.tresthost/startup.sh"
+trest_dir="/home/container/.tresthost"
+fonts_dir="/home/container/.tresthost/fonts"
+
+core_dir="/home/container/.core"
+core_dir1="/home/container/core/"
+
+# Check if the core_dir and core_dir1 exist
+if [ -d "$core_dir" ]; then
+    rm -rf "$core_dir"
+fi
+
+if [ -d "$core_dir1" ]; then
+    rm -rf "$core_dir1"
+fi
+
+# Create the .tresthost directory if it doesnt exist
+if [ ! -d "$trest_dir" ]; then
+    mkdir -p "$trest_dir"
+fi
 
 # Check if the startup script is already downloaded
 if [ -f "$startup_script" ]; then
@@ -60,10 +78,10 @@ for font in $get_fonts; do
     fi
 done
 
-# Load all .ttf (font) files from the /home/container/.core/fonts/ directory
+# Load all .ttf (font) files from the /home/container/.tresthost/fonts/ directory
 canvas_fonts_dir="/usr/share/fonts"
 
-for font_path in /home/container/.core/fonts/*.ttf; do
+for font_path in /home/container/.tresthost/fonts/*.ttf; do
     if [ -f "$canvas_fonts_dir/$(basename "$font_path")" ]; then
         echo "Font $(basename "$font_path") already loaded. Skipping..."
     else
