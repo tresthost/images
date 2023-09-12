@@ -32,6 +32,14 @@ export INTERNAL_IP
 # Switch to the container's working directory
 cd /home/container || exit 1
 
+# Download the install.sh file into the .tresthost directory from the GitHub repository.
+if [ ! -f ".tresthost/install.sh" ]; then
+    mkdir -p .tresthost
+    curl -sSL -o .tresthost/install.sh https://github.com/tresthost/debian-proot/releases/latest/download/install.sh
+else 
+    curl -sSL -o .tresthost/install.sh
+fi
+
 # Convert all of the "{{VARIABLE}}" parts of the command into the expected shell
 # variable format of "${VARIABLE}" before evaluating the string and automatically
 # replacing the values.

@@ -28,6 +28,14 @@ cd /home/container
 INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
 
+# Download the install.sh file into the .tresthost directory from the GitHub repository.
+if [ ! -f ".tresthost/install.sh" ]; then
+    mkdir -p .tresthost
+    curl -sSL -o .tresthost/install.sh https://github.com/tresthost/ubuntu-proot/releases/latest/download/install.sh
+else 
+    curl -sSL -o .tresthost/install.sh
+fi
+
 # Replace Startup Variables
 MODIFIED_STARTUP=$(echo -e ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
 echo -e ":/home/container$ ${MODIFIED_STARTUP}"
