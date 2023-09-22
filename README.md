@@ -1,4 +1,4 @@
-<img width="135" height="135" align="left" style="float: left; margin: 0 10px 0 0; border-radius: 50%;" src="https://media.discordapp.net/attachments/905722570286960650/1145091498220716153/download.png?width=135&height=135">
+<img width="135" height="135" align="left" style="float: left; margin: 0 10px 0 0; border-radius: 50%;" src="https://cdn.discordapp.com/attachments/971049189377179718/1154840028124549230/logo_new_rounded.png">
 
 ## Tresthost Images
 
