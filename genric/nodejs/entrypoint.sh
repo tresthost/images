@@ -81,6 +81,21 @@ for font_path in /home/container/.tresthost/fonts/*.ttf; do
     fi
 done
 
+# set the ram limit
+echo "Setting ram limit to $RAM_LIMIT"
+echo "$RAM_LIMIT" > /sys/fs/cgroup/memory/memory.limit_in_bytes
+
+# set the disk limit
+echo "Setting disk limit to $DISK_LIMIT"
+echo "$DISK_LIMIT" > /sys/fs/cgroup/blkio/blkio.throttle.write_bps_device
+
+# set the cpu limit
+echo "Setting cpu limit to $CPU_LIMIT"
+echo "$CPU_LIMIT" > /sys/fs/cgroup/cpu/cpu.cfs_quota_us
+
+# Print the startup message
+printf "\033[1m\033[33mcontainer@tresthost~ \033[0m%s\n" "$PARSED_STARTUP"
+
 # Create a temporary script file
 TMP_SCRIPT=$(mktemp)
 echo "#!/bin/ash" > "$TMP_SCRIPT"
