@@ -50,21 +50,23 @@ else
         && chmod +x "$startup_script"
 fi
 
-# the below code gets all the font files from the https://github.com/tresthost/fonts/fonts repo
-get_fonts=$(curl -s https://api.github.com/repos/tresthost/fonts/contents/fonts | grep download_url | cut -d '"' -f 4)
-# loop through the fonts and download them
-for font in $get_fonts; do
-    # get the font name
-    font_name=$(echo "$font" | cut -d "/" -f 8)
-    # check if the font already exists
-    if [ -f "$fonts_dir/$font_name" ]; then
-        echo "Font $font_name already exists. Skipping..."
-    else
-        echo "Font $font_name does not exist. Downloading..."
-        # Download the font
-        curl -o "$fonts_dir/$font_name" -L "$font"
-    fi
-done
+if [ "$CUSTOM_FONT_LOADER" = "false" ]; then
+    # the below code gets all the font files from the https://github.com/tresthost/fonts/fonts repo
+    get_fonts=$(curl -s https://api.github.com/repos/tresthost/fonts/contents/fonts | grep download_url | cut -d '"' -f 4)
+    # loop through the fonts and download them
+    for font in $get_fonts; do
+        # get the font name
+        font_name=$(echo "$font" | cut -d "/" -f 8)
+        # check if the font already exists
+        if [ -f "$fonts_dir/$font_name" ]; then
+            echo "Font $font_name already exists. Skipping..."
+        else
+            echo "Font $font_name does not exist. Downloading..."
+            # Download the font
+            curl -o "$fonts_dir/$font_name" -L "$font"
+        fi
+    done
+fi
 
 # Load all .ttf (font) files from the /home/container/.tresthost/fonts/ directory
 canvas_fonts_dir="/usr/share/fonts"
@@ -80,18 +82,6 @@ for font_path in /home/container/.tresthost/fonts/*.ttf; do
         echo "Font $(basename "$font_path") loaded."
     fi
 done
-
-# set the ram limit
-echo "Setting ram limit to $RAM_LIMIT"
-echo "$RAM_LIMIT" > /sys/fs/cgroup/memory/memory.limit_in_bytes
-
-# set the disk limit
-echo "Setting disk limit to $DISK_LIMIT"
-echo "$DISK_LIMIT" > /sys/fs/cgroup/blkio/blkio.throttle.write_bps_device
-
-# set the cpu limit
-echo "Setting cpu limit to $CPU_LIMIT"
-echo "$CPU_LIMIT" > /sys/fs/cgroup/cpu/cpu.cfs_quota_us
 
 # Print the startup message
 printf "\033[1m\033[33mcontainer@tresthost~ \033[0m%s\n" "$PARSED_STARTUP"
