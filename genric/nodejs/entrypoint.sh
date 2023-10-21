@@ -50,6 +50,8 @@ else
         && chmod +x "$startup_script"
 fi
 
+echo "CUSTOM_FONT_LOADER: ${CUSTOM_FONT_LOADER}"
+
 if [ "${CUSTOM_FONT_LOADER}" = 0 ]; then
     # the below code gets all the font files from the https://github.com/tresthost/fonts/fonts repo
     get_fonts=$(curl -s https://api.github.com/repos/tresthost/fonts/contents/fonts | grep download_url | cut -d '"' -f 4 | grep -E ".ttf$")
