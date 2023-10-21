@@ -40,7 +40,8 @@ RUN apk add --no-cache ttf-dejavu
 
 # Install canvas and napi-rs
 RUN apk add --no-cache --virtual .canvas-deps automake autoconf libtool cairo-dev pango-dev libjpeg-turbo-dev giflib-dev \
-    && yarn global add canvas napi-rs
+    && npm install -g canvas napi-rs \
+    && apk del .canvas-deps
 
 ENV USER=container HOME=/home/container
 ENV FONTCONFIG_PATH=/etc/fonts
