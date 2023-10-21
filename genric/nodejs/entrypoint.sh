@@ -15,7 +15,8 @@ cd /home/container || exit 1
 
 # Print Node.js version
 printf "\033[1m\033[33mcontainer@tresthost~ \033[0mnode -v\n"
-node -v
+node_version=$(node -v)
+echo $node_version
 
 # Convert all of the "{{VARIABLE}}" parts of the command into the expected shell
 # variable format of "${VARIABLE}" before evaluating the string and automatically
@@ -32,7 +33,7 @@ startup_script="/home/container/.tresthost/startup.sh"
 trest_dir="/home/container/.tresthost"
 fonts_dir="/home/container/.tresthost/fonts"
 
-# Create the .tresthost directory if it doesnt exist
+# Create the .tresthost directory if it doesn't exist
 if [ ! -d "$trest_dir" ]; then
     mkdir -p "$trest_dir"
 fi
@@ -50,9 +51,8 @@ else
         && chmod +x "$startup_script"
 fi
 
-echo "CUSTOM_FONT_LOADER: ${CUSTOM_FONT_LOADER}"
-
-if [ "${CUSTOM_FONT_LOADER}" = 0 ]; then
+if [ "$CUSTOM_FONT_LOADER" = "false" ] || [ "$CUSTOM_FONT_LOADER" = "0" ]; then
+    echo "Custom font loader is enabled. Skipping..."
     # the below code gets all the font files from the https://github.com/tresthost/fonts/fonts repo
     get_fonts=$(curl -s https://api.github.com/repos/tresthost/fonts/contents/fonts | grep download_url | cut -d '"' -f 4 | grep -E ".ttf$")
     # loop through the fonts and download them
