@@ -1,7 +1,5 @@
 #!/bin/ash
 
-# ... (Your copyright and permission notices)
-
 # Default the TZ environment variable to UTC.
 TZ=${TZ:-UTC}
 export TZ
@@ -51,8 +49,16 @@ else
         && chmod +x "$startup_script"
 fi
 
-if [ "$CUSTOM_FONT_LOADER" = "false" ] || [ "$CUSTOM_FONT_LOADER" = "0" ]; then
-    echo "Custom font loader is enabled. Skipping..."
+if [ "$CUSTOM_FONT_LOADER" = "true" ] || [ "$CUSTOM_FONT_LOADER" = "1" ]; then
+    echo "Custom font loader is enabled. Skipping installing canvas..."
+else
+    npm install canvas --build-from-source --unsafe-perm=true --allow-root
+    npm install canvas --build-from-source --unsafe-perm=true --allow-root -g
+fi
+
+if [ "$CUSTOM_FONT_LOADER" = "true" ] || [ "$CUSTOM_FONT_LOADER" = "1" ]; then
+    echo "Custom font loader is enabled. Skipping downloading..."
+else
     # the below code gets all the font files from the https://github.com/tresthost/fonts/fonts repo
     get_fonts=$(curl -s https://api.github.com/repos/tresthost/fonts/contents/fonts | grep download_url | cut -d '"' -f 4 | grep -E ".ttf$")
     # loop through the fonts and download them
@@ -73,17 +79,21 @@ fi
 # Load all .ttf (font) files from the /home/container/.tresthost/fonts/ directory
 canvas_fonts_dir="/usr/share/fonts"
 
-for font_path in /home/container/.tresthost/fonts/*.ttf; do
-    if [ -f "$canvas_fonts_dir/$(basename "$font_path")" ]; then
-        echo "Font $(basename "$font_path") already loaded. Skipping..."
-    else
-        echo "Font $(basename "$font_path") not loaded. Loading..."
-        # Load the font using the canvas package
-        node -e "const { registerFont } = require('canvas'); registerFont('${font_path}', { family: '$(basename "$font_path" .ttf)' });"
+if [ "$CUSTOM_FONT_LOADER" = "true" ] || [ "$CUSTOM_FONT_LOADER" = "1" ]; then
+    echo "Custom font loader is enabled. Skipping loading..."
+else
+    for font_path in /home/container/.tresthost/fonts/*.ttf; do
+        if [ -f "$canvas_fonts_dir/$(basename "$font_path")" ]; then
+            echo "Font $(basename "$font_path") already loaded. Skipping..."
+        else
+            echo "Font $(basename "$font_path") not loaded. Loading..."
+            # Load the font using the canvas package
+            node -e "const { registerFont } = require('canvas'); registerFont('${font_path}', { family: '$(basename "$font_path" .ttf)' });"
 
-        echo "Font $(basename "$font_path") loaded."
-    fi
-done
+            echo "Font $(basename "$font_path") loaded."
+        fi
+    done
+fi
 
 # Print the startup message
 printf "\033[1m\033[33mcontainer@tresthost~ \033[0m%s\n" "$PARSED_STARTUP"
