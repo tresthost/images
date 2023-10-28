@@ -16,9 +16,9 @@ jobs:
       fail-fast: false
       matrix:
         tag:
-          - 12
-          - 14
-          - 15
+          #- 12 # NodeJS 12 is EOL (End of Life)
+          #- 14 # NodeJS 14 is EOL (End of Life)
+          #- 15 # NodeJS 15 is EOL (End of Life)
           - 16
           - 17
           - 18

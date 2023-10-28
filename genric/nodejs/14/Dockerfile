@@ -1,25 +1,3 @@
-#
-# Copyright (c) 2021 Matthew Penner
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-
 FROM node:14-alpine
 
 LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
@@ -33,7 +11,17 @@ RUN apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite t
     && apk add --no-cache vips-dev fftw-dev build-base glib-dev expat-dev \
     && curl -L https://unpkg.com/@pnpm/self-installer | node \
     && curl -o- -L https://yarnpkg.com/install.sh | sh \
+    && apk add --no-cache openssh-client  # Install SSH client tools \
     && rm -rf /var/cache/apk/*
+
+# Install common fonts
+RUN apk add --no-cache ttf-dejavu
+
+# Install canvas and napi-rs
+RUN apk add --no-cache --virtual .canvas-deps automake autoconf libtool cairo-dev pango-dev libjpeg-turbo-dev giflib-dev \
+    && apk add --no-cache build-base g++ \
+    && npm install -g canvas napi-rs \
+    && apk del .canvas-deps
 
 ENV USER=container HOME=/home/container
 ENV FONTCONFIG_PATH=/etc/fonts
